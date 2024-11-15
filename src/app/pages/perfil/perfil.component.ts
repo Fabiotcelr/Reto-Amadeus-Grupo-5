@@ -8,6 +8,7 @@ import {
 import { RouterLink } from '@angular/router';
 import { DestinoService } from '@services/destino.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '@services/auth.service';
 
 /**
  * Enumeración de imágenes de avatar para seleccionar una imagen de avatar
@@ -28,14 +29,17 @@ enum AvatarImages {
   standalone: true,
   imports: [RouterLink, ReactiveFormsModule],
   templateUrl: './perfil.component.html',
-  styleUrl: './perfil.component.css'
+  styleUrl: './perfil.component.css',
 })
 export class PerfilComponent implements AfterViewInit {
   // Seleccionar elementos del DOM con @ViewChildren para evitar manipulación directa del DOM
   @ViewChildren('slidesElements') slidesElements!: QueryList<ElementRef>;
   @ViewChildren('dotElement') dotElemets!: QueryList<ElementRef>;
 
-  constructor(public destinoService: DestinoService) {}
+  constructor(
+    public destinoService: DestinoService,
+    public authService: AuthService
+  ) {}
 
   slideIndex: number = 1;
 
@@ -45,16 +49,16 @@ export class PerfilComponent implements AfterViewInit {
   }
 
   plusSlides(n: number): void {
-    this.showSlides(this.slideIndex += n);
+    this.showSlides((this.slideIndex += n));
   }
 
   currentSlide(n: number): void {
-    this.showSlides(this.slideIndex = n);
+    this.showSlides((this.slideIndex = n));
   }
 
   showSlides(n: number): void {
     /**
-     * Convertir QueryList en un array para poder iterar sobre cada elemento del DOM, 
+     * Convertir QueryList en un array para poder iterar sobre cada elemento del DOM,
      * en este caso los slides y los dots.
      */
     const slides = this.slidesElements.toArray();
@@ -83,53 +87,61 @@ export class PerfilComponent implements AfterViewInit {
   }
 
   nombre = new FormControl();
-  correo = new FormControl(); 
+  correo = new FormControl();
 
-  datosUsuario(){
+  datosUsuario() {
+    this.authService
+      .createUser('create', {
+        name: this.nombre.value,
+        email: this.correo.value,
+      })
+      .then((response) => {
+        this.destinoService.nombreS = response.name;
+        this.destinoService.correoS = response.email;
 
-    this.destinoService.nombreS = this.nombre.value;
-    this.destinoService.correoS = this.correo.value;
-    
-    switch(this.slideIndex){
-      case 1: {
-        this.destinoService.avatar = AvatarImages.AVATAR1;
-        break;
-      }
-      case 2: {
-        this.destinoService.avatar = AvatarImages.AVATAR2;
-        break;
-      }
-      case 3: {
-        this.destinoService.avatar = AvatarImages.AVATAR3;
-        break;
-      }
-      case 4: {
-        this.destinoService.avatar = AvatarImages.AVATAR4;
-        break;
-      }
-    }
-
+        switch (this.slideIndex) {
+          case 1: {
+            this.destinoService.avatar = AvatarImages.AVATAR1;
+            break;
+          }
+          case 2: {
+            this.destinoService.avatar = AvatarImages.AVATAR2;
+            break;
+          }
+          case 3: {
+            this.destinoService.avatar = AvatarImages.AVATAR3;
+            break;
+          }
+          case 4: {
+            this.destinoService.avatar = AvatarImages.AVATAR4;
+            break;
+          }
+        }
+      })
+      .catch((error) => {
+        console.error('User create failed', error);
+      });
   }
 
-  estadoCorreo = "";
+  estadoCorreo = '';
   controlBoton = true;
 
-  verificarNomb(event: Event){
-
+  verificarNomb(event: Event) {
     let nomUsuario = this.nombre.value;
 
-    if (nomUsuario == ""){
+    if (nomUsuario == '') {
       this.estadoCorreo = 'Escribe su nombre';
     }
   }
 
-  
   verificarCorreo(event: Event): void {
-    
-    const regEmail = /^(([^<>()\[\]\.,;:\s@"]+(\.[^<>()\[\]\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\.,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,})$/i;
+    const regEmail =
+      /^(([^<>()\[\]\.,;:\s@"]+(\.[^<>()\[\]\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\.,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,})$/i;
     const correoUsuario = this.correo.value;
-    
-    const checkbox = document.getElementById('data-accepted') as HTMLInputElement;
+
+    const checkbox = document.getElementById(
+      'data-accepted'
+    ) as HTMLInputElement;
 
     if (!regEmail.test(correoUsuario) || !checkbox.checked) {
       if (!regEmail.test(correoUsuario)) {
@@ -148,5 +160,4 @@ export class PerfilComponent implements AfterViewInit {
       this.verificarCorreo(event);
     });
   }
-
 }

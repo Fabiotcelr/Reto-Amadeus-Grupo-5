@@ -26,7 +26,7 @@ export class DestinoService {
    *
    * @example
    * try {
-   *   const data = await this.sendDestinity('/api/endpoint', { key: 'value' });
+   *   const data = await this.sendDestinity('/endpoint', { key: 'value' });
    *   console.log(data);
    * } catch (error) {
    *   console.error('Error al enviar los datos', error);

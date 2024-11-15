@@ -32,7 +32,7 @@ export class DestinoComponent {
 
     this.destinoService
       .getDestinity(
-        `searchName/${sessionStorage.getItem(
+        `searchByName/${sessionStorage.getItem(
           'destinoAmerica'
         )}/${sessionStorage.getItem('destinoEuropa')}`
       )
