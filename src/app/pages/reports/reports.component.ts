@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReportsService } from '../../servicios/reports/reports.service';
+import { ReportsService } from '../../services/reports.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -7,9 +7,9 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './reports.component.html',
-  styleUrl: './reports.component.css'
+  styleUrl: './reports.component.css',
 })
-export class ReportsComponent implements OnInit{
+export class ReportsComponent implements OnInit {
   reportData: any;
 
   constructor(private reportsService: ReportsService) {}
@@ -20,11 +20,10 @@ export class ReportsComponent implements OnInit{
 
   async loadReportData(): Promise<void> {
     try {
-      const params = {}; 
+      const params = {};
       this.reportData = await this.reportsService.getReportData(params);
     } catch (error) {
       console.error('Error al cargar los datos del reporte:', error);
     }
   }
-
 }
