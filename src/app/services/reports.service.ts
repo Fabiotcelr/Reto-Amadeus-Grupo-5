@@ -2,18 +2,27 @@ import { Injectable } from '@angular/core';
 import axios from 'axios';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ReportsService {
+  private apiUrl = 'http://localhost:8080/api/reports';
 
-  private apiUrl = 'https://671ece1f1dfc4299198329fd.mockapi.io/ListaReporte';
-
-  async getReportData(params: any): Promise<any> {
+  async createReport(reportRequest: any): Promise<any> {
     try {
-      const response = await axios.get(this.apiUrl, { params });
+      const response = await axios.post(`${this.apiUrl}/createReport`, reportRequest);
       return response.data;
     } catch (error) {
-      console.error('Error al obtener los datos del reporte:', error);
+      console.error('Error al crear el reporte:', error);
+      throw error;
+    }
+  }
+
+  async getReports(): Promise<any> {
+    try {
+      const response = await axios.get(`${this.apiUrl}/getReports`);
+      return response.data;
+    } catch (error) {
+      console.error('Error al obtener los reportes:', error);
       throw error;
     }
   }

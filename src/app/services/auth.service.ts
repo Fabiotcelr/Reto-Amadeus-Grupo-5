@@ -133,4 +133,16 @@ export class AuthService {
       throw new Error('No se pudo autenticar con el token proporcionado.');
     }
   }
+
+  /**
+   * Obtiene la información del usuario decodificando el token.
+   * @returns {any} La información del usuario o `null` si no hay token.
+   */
+  getUser(): any {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      return this.jwtHelper.decodeToken(token);
+    }
+    return null;
+  }
 }

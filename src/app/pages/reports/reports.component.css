@@ -1,0 +1,95 @@
+@import '../../../styles.css';
+
+.charts-container {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  margin: 3% 0 0 0;
+}
+
+.charts-container::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.charts-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.charts-container::-webkit-scrollbar-thumb {
+  background: var(--color03);
+  border-radius: 10px;
+}
+
+.charts-container::-webkit-scrollbar-thumb:hover {
+  background: var(--color02);
+}
+
+.chart-item {
+  flex: 0 0 auto;
+  width: 300px;
+  margin-right: 20px;
+}
+
+.chart-item:last-child {
+  margin-right: 0;
+}
+
+.header {
+  width: 100%;
+  margin: 2% 0 0 0;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.header > h1 {
+  margin: 0 0 0 0;
+  color: var(--color03);
+  justify-content: center;
+  align-items: center;
+}
+
+.container-text {
+  margin: 0 0 0 2rem;
+}
+
+.container-text p {
+  color: var(--colorButtonHover-dark);
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.button-back {
+  margin: 2% 6% 0 0;
+  padding: 1rem;
+  display: flex;
+  border: transparent;
+  color: white;
+  border-radius: 2rem;
+  background-color: var(--color03);
+  cursor: pointer;
+}
+
+.button-back:hover {
+  color: black;
+  background-color: var(--color02);
+  scale: 1.1;
+  transition: 0.3s;
+}
+
+.button-update-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button-update {
+  margin: 2% 4% 0 0;
+  padding: 1rem;
+  border: transparent;
+  color: white;
+  border-radius: 2rem;
+  background-color: var(--color03);
+  cursor: pointer;
+}
+

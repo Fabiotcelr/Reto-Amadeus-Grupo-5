@@ -39,7 +39,7 @@ export class DestinoService {
    *   console.error('Error al enviar los datos', error);
    * }
    */
-  async sendDestinity(endpoint: string, data: any): Promise<any> {
+  async sendCombination(endpoint: string, data: any): Promise<any> {
     try {
       const token = this.getAuthToken();
       const headers = token ? { Authorization: `Bearer ${token}` } : {};
