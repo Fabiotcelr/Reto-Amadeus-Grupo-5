@@ -98,9 +98,9 @@ export class AuthService {
    * @param {any} data - Los datos del usuario.
    * @returns {Promise<any>} La respuesta del servidor.
    */
-  async createUser(endpoint: string, data: any): Promise<any> {
+  async createUser(name: string, email: string): Promise<any> {
     try {
-      const response = await this.axiosClient.post(endpoint, data);
+      const response = await this.axiosClient.post("/user/create", { name, email });
       return response.data;
     } catch (error) {
       console.error('Error en createUser:', error);

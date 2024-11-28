@@ -15,7 +15,6 @@ export const authGuard = () => {
     return true;
   } else {
     console.error('Token inválido. Redirigiendo a /perfil...');
-    router.navigate(['/perfil']);
     return false;
   }
 };

@@ -5,10 +5,11 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { DestinoService } from '@services/destino.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '@services/auth.service';
+import { Router, RouterLink } from '@angular/router';
+import { CommonModule, NgIf } from '@angular/common';
 
 /**
  * Enumeración de imágenes de avatar para seleccionar una imagen de avatar
@@ -27,7 +28,7 @@ enum AvatarImages {
 @Component({
   selector: 'app-perfil',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, CommonModule, NgIf],
   templateUrl: './perfil.component.html',
   styleUrl: './perfil.component.css',
 })
@@ -38,10 +39,12 @@ export class PerfilComponent implements AfterViewInit {
 
   constructor(
     public destinoService: DestinoService,
-    public authService: AuthService
+    public authService: AuthService,
+    private router: Router
   ) {}
 
   slideIndex: number = 1;
+  showCreateAccountForm: boolean = false;
 
   // ngAfterViewInit se ejecuta después de que Angular haya inicializado las vistas del componente
   ngAfterViewInit(): void {
@@ -121,6 +124,7 @@ export class PerfilComponent implements AfterViewInit {
             this.correo.value,)
           .then((authResponse) => {
             console.log('Autenticación exitosa:', authResponse);
+            this.router.navigate(['/tarjetas']);
             // Realiza las acciones necesarias tras la autenticación
           })
           .catch((authError) => {
@@ -130,6 +134,18 @@ export class PerfilComponent implements AfterViewInit {
       .catch((error) => {
         console.error('User create failed', error);
       });
+  }
+
+  async crearCuenta() {
+
+    const isCreated = await this.authService.createUser(this.nombre.value, this.correo.value);
+    if (isCreated) {
+      alert('Cuenta creada exitosamente. Por favor, inicia sesión.');
+      this.toggleCreateAccountForm();
+    } else {
+      console.error('User creation failed');
+      alert('La creación de la cuenta falló. Por favor, inténtalo de nuevo.');
+    }
   }
 
   estadoCorreo = '';
@@ -168,5 +184,8 @@ export class PerfilComponent implements AfterViewInit {
     checkbox.addEventListener('change', () => {
       this.verificarCorreo(event);
     });
+  }
+  toggleCreateAccountForm(): void {
+    this.showCreateAccountForm = !this.showCreateAccountForm;
   }
 }

@@ -1,6 +1,6 @@
 <body class="container">
     <!--  -->
-    <form class="container__main">
+    <form class="container__main" *ngIf="!showCreateAccountForm">
         <!-- Slideshow container -->
         <div class="container__main__card">
             <!--  -->
@@ -9,20 +9,20 @@
                 <div #slidesElements class="container__main__card__avatar--img fade">
                     <img src="../../../assets/img/img-avatar/ava11.png" width="100%">
                 </div>
-                
+
                 <div #slidesElements class="container__main__card__avatar--img fade">
                     <img src="../../../assets/img/img-avatar/ava12.png" width="100%">
                 </div>
-                
+
                 <div #slidesElements class="container__main__card__avatar--img fade">
                     <img src="../../../assets/img/img-avatar/ava13.png" width="100%">
                 </div>
-                
+
                 <div #slidesElements class="container__main__card__avatar--img fade">
                     <img src="../../../assets/img/img-avatar/ava14.png" width="100%">
                 </div>
             </section>
-            
+
             <section class="container__main__card__select">
                 <!--  Previous button  -->
                 <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
@@ -30,7 +30,7 @@
                 <div class="container__main__card__dot">
                     <!--  Cada elemento se referencia con #dotElement para poder ser usado en el
                             ViewChildren dentro del Controlador y así manipular los elementos -->
-                
+
                     <span #dotElement class="dot" (click)="currentSlide(1)"></span>
                     <span #dotElement class="dot" (click)="currentSlide(2)"></span>
                     <span #dotElement class="dot" (click)="currentSlide(3)"></span>
@@ -39,21 +39,70 @@
                 <!--  Next button  -->
                 <a class="next" (click)="plusSlides(1)">&#10095;</a>
             </section>
-            
+
             <section class="container__main__card__data">
                 <input class="container__main__card__data--input" type="text" placeholder="Nombre" [formControl]="nombre" (keyup)="verificarNomb($event)">
                 <input class="container__main__card__data--input" type="email" placeholder="Correo electrónico" [formControl]="correo" (keyup)="verificarCorreo($event)">
                 <label class="container__main__card__data--alert">{{estadoCorreo}}</label>
-                
+
                 <div class="container__main__card__data--personalData">
                     <input type="checkbox" name="data-accepted" id="data-accepted" >
                     <label class="container__main__card__data--checkbox" for="data-accepted"> Acepto los <a href="https://amadeus.com/es/politicas/privacy-policy" target="_blank">términos y condiciones</a> de la política de protección de datos.</label>
                 </div>
-                
-                
+
                 <button class="container__main__card__data--button" type="button" (click)="datosUsuario()" routerLink="/tarjetas" [disabled]="controlBoton">¡Próxima aventura!</button>
-                <!-- <button class="buttonBG--dark " type="button">Próxima aventura</button> -->
+              <div class="container__main__card__data--register">
+                <h4 class="container__main__card__data--register--title">¡No tienes cuenta! Crea una al instante:</h4>
+                <button class="container__main__card__data--register--button" type="button" (click)="toggleCreateAccountForm()">Crear Cuenta</button>
+              </div>
             </section>
-        </div> 
+        </div>
+    </form>
+
+    <form class="container__main" *ngIf="showCreateAccountForm">
+      <div class="container__main__card">
+        <section class="container__main__card__avatar">
+          <div #slidesElements class="container__main__card__avatar--img fade">
+            <img src="../../../assets/img/img-avatar/ava11.png" width="100%">
+          </div>
+          <div #slidesElements class="container__main__card__avatar--img fade">
+            <img src="../../../assets/img/img-avatar/ava12.png" width="100%">
+          </div>
+          <div #slidesElements class="container__main__card__avatar--img fade">
+            <img src="../../../assets/img/img-avatar/ava13.png" width="100%">
+          </div>
+          <div #slidesElements class="container__main__card__avatar--img fade">
+            <img src="../../../assets/img/img-avatar/ava14.png" width="100%">
+          </div>
+        </section>
+
+        <section class="container__main__card__select">
+          <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
+          <div class="container__main__card__dot">
+            <span #dotElement class="dot" (click)="currentSlide(1)"></span>
+            <span #dotElement class="dot" (click)="currentSlide(2)"></span>
+            <span #dotElement class="dot" (click)="currentSlide(3)"></span>
+            <span #dotElement class="dot" (click)="currentSlide(4)"></span>
+          </div>
+          <a class="next" (click)="plusSlides(1)">&#10095;</a>
+        </section>
+
+        <section class="container__main__card__data">
+          <input class="container__main__card__data--input" type="text" placeholder="Pepito" [formControl]="nombre" (keyup)="verificarNomb($event)">
+          <input class="container__main__card__data--input" type="email" placeholder="Pepito@correo.com" [formControl]="correo" (keyup)="verificarCorreo($event)">
+          <label class="container__main__card__data--alert">{{estadoCorreo}}</label>
+
+          <div class="container__main__card__data--personalData">
+            <input type="checkbox" name="data-accepted" id="data-accepted">
+            <label class="container__main__card__data--checkbox" for="data-accepted"> Acepto los <a href="https://amadeus.com/es/politicas/privacy-policy" target="_blank">términos y condiciones</a> de la política de protección de datos.</label>
+          </div>
+
+          <button class="container__main__card__data--button" type="button" (click)="crearCuenta()" [disabled]="controlBoton">¡Crear Cuenta!</button>
+          <div class="container__main__card__data--register">
+            <h4 class="container__main__card__data--register--title">¡Ya tienes cuenta! Inicia sesión:</h4>
+            <button class="container__main__card__data--register--button" type="button" (click)="toggleCreateAccountForm()">Iniciar Sesión</button>
+          </div>
+        </section>
+      </div>
     </form>
 </body>
