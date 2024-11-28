@@ -9,7 +9,7 @@ export class DestinoService {
 
   constructor() {
     this.axiosClient = axios.create({
-      baseURL: 'http://localhost:8080/destination', // URL base para las solicitudes
+      baseURL: 'http://localhost:8080/destination/', // URL base para las solicitudes
       // timeout: 5000,
     });
   }

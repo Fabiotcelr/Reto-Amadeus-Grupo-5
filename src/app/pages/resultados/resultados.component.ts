@@ -44,10 +44,10 @@ export class ResultadosComponent {
         edad: this.destinoService.respuestasSer[5],
       })
       .then((response) => {
-        this.destinoService.destinoA = response.destinoA;
-        this.destinoService.destinoE = response.destinoE;
-        sessionStorage.setItem('destinoAmerica', response.destinoA);
-        sessionStorage.setItem('destinoEuropa', response.destinoE);
+        this.destinoService.destinoA = response.americaDestination;
+        this.destinoService.destinoE = response.europaDestination;
+        sessionStorage.setItem('destinoAmerica', response.americaDestination);
+        sessionStorage.setItem('destinoEuropa', response.europaDestination);
       })
       .catch((error) => {
         console.error('Error al enviar destino:', error);
