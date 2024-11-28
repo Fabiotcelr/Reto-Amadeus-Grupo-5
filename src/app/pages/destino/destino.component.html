@@ -33,10 +33,14 @@
 
       <div class="opcion__imagen">
         <img
-          [src]="america[0]?.img"
+        *ngIf="america[0]?.img; else loadingImages"
+        [src]="america[0]?.img"
           alt="Destino en America"
           id="imagenAmerica"
         />
+        <ng-template #loadingImages>
+          <div class="loader"></div>
+        </ng-template>
         <div class="overlay">
           <div class="text">
             <p>Pais:</p>
@@ -103,7 +107,15 @@
       </div>
 
       <div class="opcion__imagen">
-        <img [src]="europa[0]?.img" alt="Destino en Europa" id="imagenEuropa" />
+        <img 
+        *ngIf="europa[0]?.img; else loadingImages"
+        [src]="europa[0]?.img"
+        alt="Destino en Europa"
+        id="imagenEuropa" 
+        />
+        <ng-template #loadingImages>
+          <div class="loader"></div>
+        </ng-template>
         <div class="overlay">
           <div class="text">
             <p>Pais:</p>

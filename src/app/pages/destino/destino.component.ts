@@ -14,12 +14,19 @@ export class DestinoComponent implements OnInit {
   constructor(public destinoService: DestinoService) {}
 
   control: boolean = true;
+  loading: boolean = true;
 
   destinos: any[] = [];
   america: any[] = [];
   europa: any[] = [];
+  loadingImages: boolean = true;
 
   ngOnInit(): void {
+    this.loadDestinos();
+  }
+
+  loadDestinos() {
+    this.loading = true;
     setTimeout(() => {
       this.destino();
     }, 500);
@@ -39,10 +46,12 @@ export class DestinoComponent implements OnInit {
       .then((response) => {
         this.destinos = response;
         this.filtrarDestinos();
-        console.log(response);
+        this.loading = false;
+        this.checkImages();
       })
       .catch((error) => {
         console.error('Error', error);
+        this.loading = false;
       });
   }
 
@@ -55,5 +64,13 @@ export class DestinoComponent implements OnInit {
       (destino) =>
         destino.continente === 'Europa' || destino.continente === 'Asia'
     );
+  }
+
+  checkImages(): void {
+    if (!this.america[0]?.img || !this.europa[0]?.img) {
+      setTimeout(() => {
+        this.loadDestinos();
+      }, 2000); // Retry after 2 seconds
+    }
   }
 }
