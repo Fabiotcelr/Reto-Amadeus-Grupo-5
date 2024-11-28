@@ -32,9 +32,9 @@ export class ResultadosComponent {
   }
 
   enviarDestino() {
-    // Llama al método `sendDestinity` del servicio `DestinoService`, enviando un objeto con las respuestas seleccionadas
+    // Llama al método `sendCombination` del servicio `DestinoService`, enviando un objeto con las respuestas seleccionadas
     this.destinoService
-      .sendDestinity('enviarDestino', {
+      .sendCombination('enviarDestino', {
         // Parámetros que se envían en el cuerpo de la solicitud POST
         pDestino: this.destinoService.respuestasSer[0],
         pClimatica: this.destinoService.respuestasSer[1],
@@ -48,16 +48,9 @@ export class ResultadosComponent {
         this.destinoService.destinoE = response.destinoE;
         sessionStorage.setItem('destinoAmerica', response.destinoA);
         sessionStorage.setItem('destinoEuropa', response.destinoE);
-        console.log('Destino A:', this.destinoService.destinoA);
-        console.log('Destino E:', this.destinoService.destinoE);
       })
       .catch((error) => {
         console.error('Error al enviar destino:', error);
       });
-
-    if (this.destinoService.destinoA == '') {
-      this.destinoService.destinoA = 'Bora Bora';
-      this.destinoService.destinoE = 'Dubái';
-    }
   }
 }

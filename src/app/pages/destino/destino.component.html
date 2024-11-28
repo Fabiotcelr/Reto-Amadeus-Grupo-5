@@ -11,7 +11,13 @@
     <section class="opciones--opcion">
       <div class="opcion__encabezado">
         <h2 class="opcion__encabezado__nombre" (click)="destino()">
-          Aventura en América
+          Aventura en
+          <ng-container
+            *ngIf="america[0]?.continente === 'América'; else showOceania"
+          >
+            América
+          </ng-container>
+          <ng-template #showOceania> Oceanía </ng-template>
         </h2>
       </div>
 

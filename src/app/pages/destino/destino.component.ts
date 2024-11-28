@@ -48,7 +48,8 @@ export class DestinoComponent implements OnInit {
 
   filtrarDestinos(): void {
     this.america = this.destinos.filter(
-      (destino) => destino.continente === 'América'
+      (destino) =>
+        destino.continente === 'América' || destino.continente === 'Oceanía'
     );
     this.europa = this.destinos.filter(
       (destino) =>

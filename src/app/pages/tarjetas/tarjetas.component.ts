@@ -38,11 +38,11 @@ export class TarjetasComponent {
   avatar = this.destinoService.avatar;
 
   preguntaA = [
-    '¿Que tipo de entorno prefieres para tus vacaciones?',
+    '¿Qué tipo de entorno prefieres para tus vacaciones?',
     '¿Qué clima prefieres durante tus vacaciones?',
     '¿Qué tipo de actividades prefieres hacer durante tus vacaciones?',
     '¿Qué tipo de alojamiento prefieres?',
-    '¿Cuánto tiemplo planeas quedarte de vacaciones?',
+    '¿Cuánto tiempo planeas quedarte de vacaciones?',
     '¿Cuál es tu rango de edad?',
   ];
 
@@ -51,8 +51,8 @@ export class TarjetasComponent {
     ['Caluroso', 'Templado', 'Frío'],
     ['Deportes y Aventuras', 'Cultura y Museos', 'Relax y Bienestar'],
     ['Hotel de Lujo', 'Hostal o Albergue', 'Airbnb'],
-    ['Menos de una semana', '1-2 semanas', 'Más de dos semanas'],
-    ['Menos de 30 años', '30-50 años', 'Más de 50 años'],
+    ['Menos de una semana', ' 1-2 semanas', 'Más de dos semanas'],
+    ['Menos de 30 años', ' 30-50 años', 'Más de 50 años'],
   ];
 
   imgUrl = [
