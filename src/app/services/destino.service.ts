@@ -9,7 +9,7 @@ export class DestinoService {
 
   constructor() {
     this.axiosClient = axios.create({
-      baseURL: 'http://localhost:8080/api/', // URL base para las solicitudes
+      baseURL: 'http://localhost:8080/destination/', // URL base para las solicitudes
       // timeout: 5000,
     });
   }
@@ -26,13 +26,13 @@ export class DestinoService {
    *
    * @example
    * try {
-   *   const data = await this.sendDestinity('/endpoint', { key: 'value' });
+   *   const data = await this.sendCombination('endpoint', { key: 'value' });
    *   console.log(data);
    * } catch (error) {
    *   console.error('Error al enviar los datos', error);
    * }
    */
-  async sendDestinity(endpoint: string, data: any): Promise<any> {
+  async sendCombination(endpoint: string, data: any): Promise<any> {
     try {
       const response = await this.axiosClient.post(endpoint, data);
       return response.data;
@@ -52,7 +52,7 @@ export class DestinoService {
    *
    * @example
    * try {
-   *   const data = await this.getDestinity('/api/endpoint/nameDestinity1/nameDestinity2');
+   *   const data = await this.getDestinity('endpoint/nameDestinity1/nameDestinity2');
    *   console.log(data);
    * } catch (error) {
    *   console.error('Error al obtener los datos', error);
