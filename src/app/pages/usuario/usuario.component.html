@@ -6,7 +6,7 @@
     <div class="infoUsuario">
       @if (ruta == "/index" || ruta == "/perfil") {
         <img class="imgIcon" src="https://cdn-icons-png.flaticon.com/512/995/995168.png" alt="planetaIcon">
-        <button class="buttonSesion">Iniciar travesia</button>
+        <button class="buttonSesion" (click)="iniciarSesion()">Iniciar travesia</button>
       }@else {
         <h3>Nombre: <span>{{nombre}}</span></h3>
         <h3>Correo: <span>{{correo}}</span></h3>

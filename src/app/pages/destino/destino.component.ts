@@ -10,7 +10,7 @@ import { NgIf } from '@angular/common';
   templateUrl: './destino.component.html',
   styleUrl: './destino.component.css',
 })
-export class DestinoComponent {
+export class DestinoComponent implements OnInit {
   constructor(public destinoService: DestinoService) {}
 
   control: boolean = true;
@@ -22,7 +22,7 @@ export class DestinoComponent {
   ngOnInit(): void {
     setTimeout(() => {
       this.destino();
-    }, 5);
+    }, 500);
   }
 
   destino() {

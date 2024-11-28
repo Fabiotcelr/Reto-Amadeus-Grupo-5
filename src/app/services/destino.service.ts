@@ -9,9 +9,16 @@ export class DestinoService {
 
   constructor() {
     this.axiosClient = axios.create({
-      baseURL: 'http://localhost:8080/api/', // URL base para las solicitudes
+      baseURL: 'http://localhost:8080/destination', // URL base para las solicitudes
       // timeout: 5000,
     });
+  }
+
+  /**
+   * Método para obtener el token de autenticación desde localStorage o sessionStorage
+   */
+  private getAuthToken(): string | null {
+    return localStorage.getItem('access_token'); // O usa sessionStorage si lo guardas ahí
   }
 
   /**
@@ -34,7 +41,10 @@ export class DestinoService {
    */
   async sendDestinity(endpoint: string, data: any): Promise<any> {
     try {
-      const response = await this.axiosClient.post(endpoint, data);
+      const token = this.getAuthToken();
+      const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
+      const response = await this.axiosClient.post(endpoint, data, { headers });
       return response.data;
     } catch (error) {
       console.error('Error', error);
@@ -60,7 +70,10 @@ export class DestinoService {
    */
   async getDestinity(endpoint: string): Promise<any> {
     try {
-      const response = await this.axiosClient.get(endpoint);
+      const token = this.getAuthToken();
+      const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
+      const response = await this.axiosClient.get(endpoint, { headers });
       return response.data;
     } catch (error) {
       console.error('Error', error);

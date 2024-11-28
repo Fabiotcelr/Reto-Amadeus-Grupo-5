@@ -90,11 +90,10 @@ export class PerfilComponent implements AfterViewInit {
   correo = new FormControl();
 
   datosUsuario() {
-    this.authService
-      .createUser('create', {
-        name: this.nombre.value,
-        email: this.correo.value,
-      })
+    this.authService.generateToken(
+        this.nombre.value,
+        this.correo.value,
+      )
       .then((response) => {
         this.destinoService.nombreS = response.name;
         this.destinoService.correoS = response.email;
@@ -117,6 +116,16 @@ export class PerfilComponent implements AfterViewInit {
             break;
           }
         }
+        this.authService
+          .authenticate(this.nombre.value,
+            this.correo.value,)
+          .then((authResponse) => {
+            console.log('Autenticación exitosa:', authResponse);
+            // Realiza las acciones necesarias tras la autenticación
+          })
+          .catch((authError) => {
+            console.error('Error al autenticar con el token:', authError);
+          });
       })
       .catch((error) => {
         console.error('User create failed', error);
